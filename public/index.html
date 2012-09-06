@@ -52,11 +52,16 @@ var div05 = $('#div05');
     });
 
     div02.on('mousedown',function(e){
-        console.log('鼠标按下时，触发');
-        console.log('e.pageY : ',e.pageY);
-        console.log('e.clientY : ',e.clientY);
-        console.log('e.offsetY : ',e.offsetY);
-        console.log('e.screenY : ',e.screenY);
+        div02.empty();
+        div02.append('鼠标按下时，触发');
+        div02.append('<br />');
+        div02.append('e.pageY : ',e.pageY);
+        div02.append('<br />');
+        div02.append('e.clientY : ',e.clientY);
+        div02.append('<br />');
+        div02.append('e.offsetY : ',e.offsetY);
+        div02.append('<br />');
+        div02.append('e.screenY : ',e.screenY);
 //        e.element.pageX;
 //        e.element.clientX;
 //        e.element.offsetX;
@@ -64,12 +69,25 @@ var div05 = $('#div05');
 
 
     div03.on('mousemove',function(e){
+        div03.empty();
+        div03.append('鼠标放置在此区域中时，触发mousemove事件');
+        div03.append('<br />');
+
+        div03.append('e.clientY : ',e.clientY);
+
         console.log('e.clientY : ',e.clientY);
     });
 
 
     div04.on('mouseup',function(e){
-        console.log('鼠标抬起时，触发------e.clientY : ',e.clientY);
+        div04.empty();
+        div04.append('鼠标抬起时，触发');
+        div04.append('<br />');
+
+        div04.append('e.clientY : ',e.clientY);
+
+//        console.log('e.clientY : ',e.clientY);
+//        console.log('鼠标抬起时，触发------e.clientY : ',e.clientY);
     });
 
 </script>

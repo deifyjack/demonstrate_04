@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>localStorage与sessionStorage</title>
+
+    <script type="text/javascript" src="./javascripts/jquery/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+
+<P>this is localStorage demo .</P>
+
+<div id="add_local_value" > 增加一个值</div><br /></div><div id="show_local_value">显示增加的值</div><br />
+<div id="del_local_value" > 删除一个值</div><br /><div id="clear_local_value">清空</div><br /><br />
+
+<div id="local_show_value">展示显示的数据</div>
+<br /><br />
+<P>this is sessionStorage demo .</P>
+<div id="add_session_value" > 增加一个值</div><br /></div><div id="show_session_value">显示增加的值</div><br />
+<div id="del_session_value" > 删除一个值</div><br /><div id="clear_session_value">清空</div><br /><br />
+
+<div id="session_show_value">展示显示的数据</div>
+
+<script type="text/javascript">
+//如果你的浏览器支持该特性的话，那么全局对象：
+// window上会有一个localStorage的属性，
+// 反之，你的浏览器不支持的话，那么该属性值为undefined。可以封装成一个函数：
+function supportLocalStorage(){
+    return !!window.localStorage;
+}
+if(!supportLocalStorage()){
+    alert("您的浏览器不支持localStorage特性，请更新您的浏览器!");
+}
+
+$('#add_local_value').on('click',function(){
+
+    localStorage.setItem("test","hello world"); //设置一个键值
+    console.log('!!!!!'+localStorage.getItem("test"));
+});
+
+$('#show_local_value').on('click',function(){
+    var test = localStorage.getItem("test"); //获取一个键值
+    $('#local_show_value').empty();
+    $('#local_show_value').append(''+test);
+});
+
+$('#del_local_value').on('click',function(){
+    localStorage.removeItem("test"); //删除一个键值
+});
+
+$('#clear_local_value').on('click',function(){
+    localStorage.clear(); //清空storage
+});
+
+//localStorage.setItem("fresh","vfresh.org"); //设置一个键值
+//var a = localStorage.getItem("fresh"); //获取一个键值
+//localStorage.removeItem("fresh"); //删除一个键值
+//localStorage.clear(); //清空storage
+
+//console.log('!!!!!',a);
+
+
+$('#add_session_value').on('click',function(){
+
+    sessionStorage.setItem("test","hello world"); //设置一个键值
+    console.log('!!!!!'+sessionStorage.getItem("test"));
+});
+
+$('#show_session_value').on('click',function(){
+    var test = sessionStorage.getItem("test"); //获取一个键值
+    $('#session_show_value').empty();
+    $('#session_show_value').append(''+test);
+});
+
+$('#del_session_value').on('click',function(){
+    sessionStorage.removeItem("test"); //删除一个键值
+});
+
+$('#clear_session_value').on('click',function(){
+    sessionStorage.clear(); //清空storage
+});
+
+</script>
+</body>
+</html>

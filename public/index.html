@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="./javascripts/jquery/jquery-1.7.1.min.js" ></script>
+
+</head>
+<body>
+<h2>--------在chrome浏览器测试-----------</h2>
+<div class="div_block">
+    <h2>onclick demo</h2>
+    <div id="div01">
+        <h2>点击弹出对话框</h2>
+    </div>
+</div>
+
+<div class="div_block">
+    <h2>mousedown</h2>
+    <div id="div02">
+        <h2>鼠标按下时，触发</h2>
+    </div>
+</div>
+
+<div class="div_block">
+    <h2>mousemove</h2>
+    <div id="div03">
+        <h2>鼠标放置在此区域中时，触发mousemove事件</h2>
+    </div>
+</div>
+
+<div class="div_block">
+    <h2>mouseup</h2>
+    <div id="div04">
+        <h2>鼠标抬起时，触发</h2>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+var div01 = $('#div01');
+var div02 = $('#div02');
+var div03 = $('#div03');
+var div04 = $('#div04');
+var div05 = $('#div05');
+
+    div01.on('click',function(){
+        alert('clicked the div01');
+    });
+
+    div02.on('mousedown',function(e){
+        console.log('鼠标按下时，触发');
+        console.log('e.pageY : ',e.pageY);
+        console.log('e.clientY : ',e.clientY);
+        console.log('e.offsetY : ',e.offsetY);
+        console.log('e.screenY : ',e.screenY);
+//        e.element.pageX;
+//        e.element.clientX;
+//        e.element.offsetX;
+    });
+
+
+    div03.on('mousemove',function(e){
+        console.log('e.clientY : ',e.clientY);
+    });
+
+
+    div04.on('mouseup',function(e){
+        console.log('鼠标抬起时，触发------e.clientY : ',e.clientY);
+    });
+
+</script>
+</body>
+</html>

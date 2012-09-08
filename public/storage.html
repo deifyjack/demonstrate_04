@@ -3,81 +3,115 @@
 <head>
     <title>localStorage与sessionStorage</title>
 
-    <script type="text/javascript" src="./javascripts/jquery/jquery-1.7.1.min.js" ></script>
+    <script type="text/javascript" src="./javascripts/jquery/jquery-1.7.1.min.js"></script>
+    <link href="stylesheets/storage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<P>this is localStorage demo .</P>
+<button id="clear">清空  Storage</button>
+<h1>this is localStorage demo .</h1>
 
-<div id="add_local_value" > 增加一个值</div><br /></div><div id="show_local_value">显示增加的值</div><br />
-<div id="del_local_value" > 删除一个值</div><br /><div id="clear_local_value">清空</div><br /><br />
+<div><input type="text" id="input01"/></div>
+<button type="button" id="but01">提交购物车,保存到localStorage中</button>
+<br/>
 
-<div id="local_show_value">展示显示的数据</div>
-<br /><br />
-<P>this is sessionStorage demo .</P>
-<div id="add_session_value" > 增加一个值</div><br /></div><div id="show_session_value">显示增加的值</div><br />
-<div id="del_session_value" > 删除一个值</div><br /><div id="clear_session_value">清空</div><br /><br />
+<P>-----------展示localStorage数据-------</P>
+<br/>
+<table id="table01" style=" ">
+    <tr>
+        <td>key</td>
+        <td>value</td>
+    </tr>
 
-<div id="session_show_value">展示显示的数据</div>
+
+</table>
+<br/><br/>
+
+<h1>this is sessionStorage demo .</h1>
+
+<div><input type="text" id="input02"/></div>
+<button type="button" id="but02">提交购物车,保存到sessionStorage中</button>
+<br/>
+
+<P>-----------展示sessionStorage数据-------</P>
+<br/>
+<table id="table02" style=" ">
+    <tr>
+        <td>key</td>
+        <td>value</td>
+    </tr>
+
+
+</table>
 
 <script type="text/javascript">
-//如果你的浏览器支持该特性的话，那么全局对象：
-// window上会有一个localStorage的属性，
-// 反之，你的浏览器不支持的话，那么该属性值为undefined。可以封装成一个函数：
-function supportLocalStorage(){
-    return !!window.localStorage;
-}
-if(!supportLocalStorage()){
-    alert("您的浏览器不支持localStorage特性，请更新您的浏览器!");
-}
+    //如果你的浏览器支持该特性的话，那么全局对象：
+    // window上会有一个localStorage的属性，
+    // 反之，你的浏览器不支持的话，那么该属性值为undefined。可以封装成一个函数：
+    function supportLocalStorage() {
+        return !!window.localStorage;
+    }
+    if (!supportLocalStorage()) {
+        alert("您的浏览器不支持localStorage特性，请更新您的浏览器!");
+    }
 
-$('#add_local_value').on('click',function(){
+    $('#clear').on('click', function () {
+        localStorage.clear(); //清空storage
+        sessionStorage.clear(); //清空storage
+        showLocal();
+        showSession();
+    });
 
-    localStorage.setItem("test","hello world"); //设置一个键值
-    console.log('!!!!!'+localStorage.getItem("test"));
-});
+    $('#but01').on('click', function (e) {
+//        alert('asdasdfsdafds');
+        if (document.getElementById('input01').value != null && document.getElementById('input01').value != '') {
+            localStorage.setItem("key" + (localStorage.length + 1), document.getElementById('input01').value); //设置一个键值
 
-$('#show_local_value').on('click',function(){
-    var test = localStorage.getItem("test"); //获取一个键值
-    $('#local_show_value').empty();
-    $('#local_show_value').append(''+test);
-});
+            showLocal();
+        } else {
+            alert('输入为空');
+        }
 
-$('#del_local_value').on('click',function(){
-    localStorage.removeItem("test"); //删除一个键值
-});
+    });
 
-$('#clear_local_value').on('click',function(){
-    localStorage.clear(); //清空storage
-});
+    function showLocal() {
+        $('#table01').empty();
+        var content = '<tr><td>key</td><td>value</td></tr>';
+//    $('#table01').append('<tr><td>key</td><td>value</td></tr>');
+        for (var key in localStorage) {
+            var vaule = localStorage.getItem('' + key);
+            content = content + '<tr><td>' + key + '</td><td>' + vaule + '</td></tr>'
 
-//localStorage.setItem("fresh","vfresh.org"); //设置一个键值
-//var a = localStorage.getItem("fresh"); //获取一个键值
-//localStorage.removeItem("fresh"); //删除一个键值
-//localStorage.clear(); //清空storage
+        }
+        $('#table01').append(content);
+    }
 
-//console.log('!!!!!',a);
+    showLocal();
 
+    $('#but02').on('click', function (e) {
+//        alert('asdasdfsdafds');
+        if (document.getElementById('input02').value != null && document.getElementById('input02').value != '') {
+            sessionStorage.setItem("key" + (sessionStorage.length + 1), document.getElementById('input02').value); //设置一个键值
 
-$('#add_session_value').on('click',function(){
+            showSession();
+        } else {
+            alert('输入为空');
+        }
 
-    sessionStorage.setItem("test","hello world"); //设置一个键值
-    console.log('!!!!!'+sessionStorage.getItem("test"));
-});
+    });
+    function showSession() {
+        $('#table02').empty();
+        var content = '<tr><td>key</td><td>value</td></tr>';
+//    $('#table01').append('<tr><td>key</td><td>value</td></tr>');
+        for (var key in sessionStorage) {
+            var vaule = sessionStorage.getItem('' + key);
+            content = content + '<tr><td>' + key + '</td><td>' + vaule + '</td></tr>'
 
-$('#show_session_value').on('click',function(){
-    var test = sessionStorage.getItem("test"); //获取一个键值
-    $('#session_show_value').empty();
-    $('#session_show_value').append(''+test);
-});
+        }
+        $('#table02').append(content);
+    }
 
-$('#del_session_value').on('click',function(){
-    sessionStorage.removeItem("test"); //删除一个键值
-});
-
-$('#clear_session_value').on('click',function(){
-    sessionStorage.clear(); //清空storage
-});
+    showSession();
 
 </script>
 </body>

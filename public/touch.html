@@ -19,47 +19,58 @@
 
 <script type="text/javascript">
 
-    //    document.getElementById('inner').addEventListener('touchmove', function (event) {
-    //        event.preventDefault();
-    //        alert('inner size:' + event.targetTouches.length);
-    //    },false);
-    //
-    //    document.getElementById('outer').addEventListener('touchmove', function (event) {
-    //        event.preventDefault();
-    //        alert('outter size:' + event.targetTouches.length);
-    //    },false);
+//        document.getElementById('inner').addEventListener('touchmove', function (event) {
+//            event.preventDefault();
+//            alert('inner size:' + event.targetTouches.length);
+//        },false);
+//
+//        document.getElementById('outer').addEventListener('touchmove', function (event) {
+//            event.preventDefault();
+//            alert('outter size:' + event.targetTouches.length);
+//        },false);
 
-    //    document.getElementById('inner').addEventListener('touchmove', function (event) {
-    //        event.preventDefault();
-    //        alert('inner size:' + event.touches.length);
-    //    },false);
-    //
-    //    document.getElementById('outer').addEventListener('touchmove', function (event) {
-    //        event.preventDefault();
-    //        alert('outter size:' + event.touches.length);
-    //    },false);
+//        document.getElementById('inner').addEventListener('touchmove', function (event) {
+//            event.preventDefault();
+//            alert('inner size:' + event.touches.length);
+//        },false);
+//
+//        document.getElementById('outer').addEventListener('touchmove', function (event) {
+//            event.preventDefault();
+//            alert('outter size:' + event.touches.length);
+//        },false);
 
+//下面代码实现拖拽。
     var item = $('#inner');
-
-    item.on('touchstart touchmove touchend touchcancel', function (e) {
+item.oldX = 0;
+item.oldY = 0;
+    item.on('touchstart touchmove touchend', function (e) {
         if (e.originalEvent.targetTouches.length > 1) {
             return false;
         }
         if (e.type == 'touchstart') {
-//            pages.moveX = 0;
-//            pages.velocity = 0;
-//            pages.lastX = e.originalEvent.touches[0].pageX;
-//            pages.touchId = e.originalEvent.targetTouches[0].identifier;
-//            $(pages).css(
-//                    '-webkit-transition-duration', '0s');
+            item.moveX = 0;
+            item.moveY = 0;
+            item.lastX = e.originalEvent.touches[0].pageX;
+            item.lastY = e.originalEvent.touches[0].pageY;
         }
 
         if (e.type == 'touchmove') {
             e.preventDefault();
-            item.left =  e.originalEvent.targetTouches[0].pageX - xbox + 'px';
-            item.top =   e.originalEvent.targetTouches[0].pageY - ybox + 'px';
-            item.css({'-webkit-transform':'translate(23px, -40px)'});
-
+            item.moveX += e.originalEvent.touches[0].pageX
+                    - item.lastX;
+            item.moveY += e.originalEvent.touches[0].pageY
+                    - item.lastY;
+            item.css('-webkit-transform','translate('
+                    + (item.moveX+item.oldX)
+                    + 'px,'+ (item.moveY+item.oldY)
+                    + 'px)');
+            item.lastX = e.originalEvent.touches[0].pageX;
+            item.lastY = e.originalEvent.touches[0].pageY;
+        }
+        if (e.type == 'touchend') {
+            console.log('touchend被触发');
+            item.oldX = item.moveX+item.oldX;
+            item.oldY = item.moveY+item.oldY;
         }
     });
 

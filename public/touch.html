@@ -5,7 +5,7 @@
     <!--<meta name="apple-touch-fullscreen" content="YES" />-->
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title></title>
-
+    <script type="text/javascript" src="./javascripts/jquery/jquery-1.7.1.min.js"></script>
     <link href="stylesheets/touch.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -19,25 +19,49 @@
 
 <script type="text/javascript">
 
-    document.getElementById('inner').addEventListener('touchmove', function (event) {
-        event.preventDefault();
-        alert('inner size:' + event.targetTouches.length);
-    },false);
+    //    document.getElementById('inner').addEventListener('touchmove', function (event) {
+    //        event.preventDefault();
+    //        alert('inner size:' + event.targetTouches.length);
+    //    },false);
+    //
+    //    document.getElementById('outer').addEventListener('touchmove', function (event) {
+    //        event.preventDefault();
+    //        alert('outter size:' + event.targetTouches.length);
+    //    },false);
 
-    document.getElementById('outer').addEventListener('touchmove', function (event) {
-        event.preventDefault();
-        alert('outter size:' + event.targetTouches.length);
-    },false);
+    //    document.getElementById('inner').addEventListener('touchmove', function (event) {
+    //        event.preventDefault();
+    //        alert('inner size:' + event.touches.length);
+    //    },false);
+    //
+    //    document.getElementById('outer').addEventListener('touchmove', function (event) {
+    //        event.preventDefault();
+    //        alert('outter size:' + event.touches.length);
+    //    },false);
 
-//    document.getElementById('inner').addEventListener('touchmove', function (event) {
-//        event.preventDefault();
-//        alert('inner size:' + event.touches.length);
-//    },false);
-//
-//    document.getElementById('outer').addEventListener('touchmove', function (event) {
-//        event.preventDefault();
-//        alert('outter size:' + event.touches.length);
-//    },false);
+    var item = $('#inner');
+
+    item.on('touchstart touchmove touchend touchcancel', function (e) {
+        if (e.originalEvent.targetTouches.length > 1) {
+            return false;
+        }
+        if (e.type == 'touchstart') {
+//            pages.moveX = 0;
+//            pages.velocity = 0;
+//            pages.lastX = e.originalEvent.touches[0].pageX;
+//            pages.touchId = e.originalEvent.targetTouches[0].identifier;
+//            $(pages).css(
+//                    '-webkit-transition-duration', '0s');
+        }
+
+        if (e.type == 'touchmove') {
+            e.preventDefault();
+            item.left =  e.originalEvent.targetTouches[0].pageX - xbox + 'px';
+            item.top =   e.originalEvent.targetTouches[0].pageY - ybox + 'px';
+            item.css({'-webkit-transform':'translate(23px, -40px)'});
+
+        }
+    });
 
 </script>
 

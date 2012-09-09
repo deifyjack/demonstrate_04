@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="charset=utf-8">
+    <!--<meta name="apple-touch-fullscreen" content="YES" />-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title></title>
+
+    <link href="stylesheets/touch.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<h2>--------在模拟器 浏览器测试-----------</h2>
+
+<div id='outer'>
+    <div id='inner'></div>
+</div>
+​
+
+<script type="text/javascript">
+
+    document.getElementById('inner').addEventListener('touchmove', function (event) {
+        event.preventDefault();
+        alert('inner size:' + event.targetTouches.length);
+    },false);
+
+    document.getElementById('outer').addEventListener('touchmove', function (event) {
+        event.preventDefault();
+        alert('outter size:' + event.targetTouches.length);
+    },false);
+
+//    document.getElementById('inner').addEventListener('touchmove', function (event) {
+//        event.preventDefault();
+//        alert('inner size:' + event.touches.length);
+//    },false);
+//
+//    document.getElementById('outer').addEventListener('touchmove', function (event) {
+//        event.preventDefault();
+//        alert('outter size:' + event.touches.length);
+//    },false);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
+</head>
+<body>
+<div id="map" style="width:600px;height:600px;"></div>
+<script type="text/javascript">
+
+    //返回地理定位对象
+    var geo = navigator.geolocation;
+
+    /*
+     *方法,获取当前客户端地理位置
+     *有三个参数可以用
+     *successCallback：必需,函数,获取成功后的回调函数
+     *errorCallback：可选,函数,失败时的回调函数*options：可选,对象字面量,有三个值可设定：
+     *      enableHighAccuracy：是否启用高精度设备（高精度设备包含但不局限于前面所提到的 GPS 和 WIFI）
+     *      maximumAge：数值,如果将其定义为负数或者未定义，会重设为0
+     *      timeout：数值,请求获取地理信息时的超时时间，如果将其定义为负数会重设为0，如果未定义则不启用超时判断 
+     */
+    //    geo.getCurrentPosition(successCallback,errorCallback,options);
+    //    使用地理定位API需要获得用户的许可，如果没有，会执行errorCallback；
+    //
+    //    watchPosition的successCallback只有在获取到的实时地理位置和之前有较大不同时才会执行；
+    //
+    //    getCurrentPosition和watchPosition的successCallback都有一个position参数，它包含有详细的地理信息如经纬度：
+    //
+    //    javascript
+    geo.getCurrentPosition(function (pos) {//成功获取时执行
+                var coord = pos.coords, //坐标detail
+                        accuracy = coord.accuracy, //精准度，单位为米
+                        latitude = coord.latitude, //纬度
+                        longitude = coord.longitude, //经度
+                        altitudeAccuracy = coord.altitudeAccuracy, //高度精确度，单位为米
+                        heading = coord.heading, //移动的方向
+                        speed = coord.speed;        //速度
+                console.log('coord = ', coord);
+//                showLocationInfo(coord,'map');        //显示坐标信息
+                showMap(coord, 'map');        //显示google地图
+            },
+            function (error) {//获取失败时执行
+                alert('error:' + error.message + '\n\n无法获得您的地理位置：');
+            });
+
+    function showMap(value) {
+        var longitude = value.longitude;
+        var latitude = value.latitude;
+        var map = new BMap.Map("map");
+        var point = new BMap.Point(longitude, latitude);    // 创建点坐标
+        map.centerAndZoom(point, 15);
+        var marker = new BMap.Marker(new BMap.Point(longitude, latitude));  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+    }
+
+    /*
+     *方法,持续监控当前客户端地理位置（实时）
+     *返回该watchPosition的id*参数同getCurrentPosition
+     */
+    //    var watchGEO = geo.watchPosition(successCallback,errorCallback,options);
+    //    var watchGEO = geo.watchPosition(function(){
+    //
+    //    },function(){
+    //
+    //    },options);
+
+
+
+    /*方法,结束指定ID的watchPosition*/
+//        geo.clearWatch(watchId);
+
+
+</script>
+
+</body>
+</html>
